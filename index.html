@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,7 +12,10 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: 'hsl(222.2 47.4% 11.2%)',
+                        primary: '#0D0D0D', // Premium dark black color
+                    },
+                    boxShadow: {
+                        glow: '0 0 10px #0D0D0D', // Glow effect for buttons
                     }
                 }
             }
@@ -22,30 +25,30 @@
         .backdrop-blur { backdrop-filter: blur(8px); }
     </style>
 </head>
-<body class="bg-gradient-to-br from-primary/5 to-primary/10 min-h-screen">
+<body class="bg-primary min-h-screen text-gray-200"> <!-- Changed text color to gray-200 -->
     <div class="container mx-auto p-4 max-w-7xl">
         <!-- Header -->
-        <div class="bg-white/80 backdrop-blur rounded-lg shadow-sm p-6 mb-6">
+        <div class="bg-primary/90 backdrop-blur rounded-lg shadow-sm p-6 mb-6"> <!-- Changed bg to primary/90 -->
             <div class="flex items-center gap-3 mb-4">
-                <i class="fas fa-calendar text-primary text-2xl"></i>
-                <h1 class="text-3xl font-bold text-primary">Timetable Pro</h1>
+                <i class="fas fa-calendar text-gray-200 text-2xl"></i> <!-- Changed icon color to gray-200 -->
+                <h1 class="text-3xl font-bold text-gray-200">Timetable Pro</h1> <!-- Changed text color to gray-200 -->
             </div>
             <div class="grid gap-4 md:grid-cols-2 mb-4">
-                <input type="text" id="title" placeholder="Timetable Title*" class="w-full px-4 py-2 rounded-md border">
-                <input type="password" id="pin" placeholder="PIN (for sharing)*" class="w-full px-4 py-2 rounded-md border">
+                <input type="text" id="title" placeholder="Timetable Title*" class="w-full px-4 py-2 rounded-md border bg-primary/40 text-gray-200">
+                <input type="password" id="pin" placeholder="PIN (for sharing)*" class="w-full px-4 py-2 rounded-md border bg-primary/40 text-gray-200">
             </div>
-            <textarea id="description" placeholder="Description (optional)" class="w-full px-4 py-2 rounded-md border"></textarea>
+            <textarea id="description" placeholder="Description (optional)" class="w-full px-4 py-2 rounded-md border bg-primary/40 text-gray-200"></textarea>
         </div>
 
         <!-- Main Content -->
         <div class="grid md:grid-cols-[2fr_1fr] gap-6">
             <!-- Schedule Section -->
             <div class="space-y-6">
-                <div class="bg-white/80 backdrop-blur rounded-lg shadow-sm">
-                    <div class="p-6 border-b">
+                <div class="bg-primary/90 backdrop-blur rounded-lg shadow-sm"> <!-- Changed bg to primary/90 -->
+                    <div class="p-6 border-b border-gray-200">
                         <div class="flex items-center justify-between">
-                            <h2 id="selected-day" class="text-xl font-semibold">Schedule for Monday</h2>
-                            <button onclick="addEvent()" class="px-4 py-2 bg-primary text-white rounded-md flex items-center gap-2">
+                            <h2 id="selected-day" class="text-xl font-semibold text-gray-200">Schedule for Monday</h2> <!-- Changed text color to gray-200 -->
+                            <button onclick="addEvent()" class="px-4 py-2 bg-primary text-gray-200 rounded-md flex items-center gap-2 shadow-glow"> <!-- Added shadow-glow -->
                                 <i class="fas fa-plus"></i>
                                 Add Event
                             </button>
@@ -60,17 +63,17 @@
             <!-- Sidebar -->
             <div class="space-y-6">
                 <!-- Days Selection -->
-                <div class="bg-white/80 backdrop-blur rounded-lg shadow-sm p-4">
+                <div class="bg-primary/90 backdrop-blur rounded-lg shadow-sm p-4"> <!-- Changed bg to primary/90 -->
                     <div id="days-container" class="flex flex-wrap gap-2">
                         <!-- Days will be added here -->
                     </div>
                 </div>
 
                 <!-- Timeline -->
-                <div class="bg-white/80 backdrop-blur rounded-lg shadow-sm p-4">
+                <div class="bg-primary/90 backdrop-blur rounded-lg shadow-sm p-4"> <!-- Changed bg to primary/90 -->
                     <div class="flex items-center gap-2 mb-4">
-                        <i class="fas fa-clock text-primary"></i>
-                        <h3 id="current-time" class="font-semibold"></h3>
+                        <i class="fas fa-clock text-gray-200"></i> <!-- Changed icon color to gray-200 -->
+                        <h3 id="current-time" class="font-semibold text-gray-200"></h3> <!-- Changed text color to gray-200 -->
                     </div>
                     <div id="timeline-container">
                         <!-- Current and upcoming events will be shown here -->
@@ -78,20 +81,22 @@
                 </div>
 
                 <!-- Download Button -->
-                <button onclick="downloadTimetable()" class="w-full px-4 py-2 bg-primary text-white rounded-md flex items-center justify-center gap-2">
+                <button onclick="downloadTimetable()" class="w-full px-4 py-2 bg-primary text-gray-200 rounded-md flex items-center justify-center gap-2 shadow-glow"> <!-- Added shadow-glow -->
                     <i class="fas fa-download"></i>
                     Download Timetable
                 </button>
 
                 <!-- Share Link -->
-                <div class="bg-white/80 backdrop-blur rounded-lg shadow-sm p-4">
+                <div class="bg-primary/90 backdrop-blur rounded-lg shadow-sm p-4"> <!-- Changed bg to primary/90 -->
                     <div class="flex items-center gap-2 mb-4">
-                        <i class="fas fa-share text-primary"></i>
-                        <h3 class="font-semibold">Share Timetable</h3>
+                        <i class="fas fa-share text-gray-200"></i> <!-- Changed icon color to gray-200 -->
+                        <h3 class="font-semibold text-gray-200">Share Timetable</h3> <!-- Changed text color to gray-200 -->
                     </div>
                     <div class="flex gap-2">
-                        <input type="text" id="share-link" class="w-full px-4 py-2 rounded-md border" readonly>
-                        <button onclick="generateShareLink()" class="px-4 py-2 bg-primary text-white rounded-md">Generate</button>
+                        <input type="text" id="share-link" class="w-full px-4 py-2 rounded-md border bg-primary/40 text-gray-200" readonly>
+                        <button onclick="generateShareLink()" class="px-4 py-2 bg-primary text-gray-200 rounded-md shadow-glow"> <!-- Added shadow-glow -->
+                            Generate
+                        </button>
                     </div>
                 </div>
             </div>
@@ -100,24 +105,26 @@
 
     <!-- Event Dialog -->
     <div id="event-dialog" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center">
-        <div class="bg-white rounded-lg p-6 w-full max-w-md mx-4">
-            <h3 class="text-lg font-semibold mb-4">Edit Event</h3>
+        <div class="bg-primary rounded-lg p-6 w-full max-w-md mx-4"> <!-- Changed bg to primary -->
+            <h3 class="text-lg font-semibold mb-4 text-gray-200">Edit Event</h3> <!-- Changed text color to gray-200 -->
             <div class="space-y-4">
-                <input type="text" id="event-title" placeholder="Event Title" class="w-full px-4 py-2 rounded-md border">
-                <textarea id="event-description" placeholder="Event Description (optional)" class="w-full px-4 py-2 rounded-md border"></textarea>
+                <input type="text" id="event-title" placeholder="Event Title" class="w-full px-4 py-2 rounded-md border bg-primary/40 text-gray-200">
+                <textarea id="event-description" placeholder="Event Description (optional)" class="w-full px-4 py-2 rounded-md border bg-primary/40 text-gray-200"></textarea>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="text-sm font-medium">Start Time</label>
-                        <select id="event-start" class="w-full rounded-md border p-2 mt-1"></select>
+                        <label class="text-sm font-medium text-gray-200">Start Time</label> <!-- Changed text color to gray-200 -->
+                        <select id="event-start" class="w-full rounded-md border p-2 mt-1 bg-primary/40 text-gray-200"></select>
                     </div>
                     <div>
-                        <label class="text-sm font-medium">End Time</label>
-                        <select id="event-end" class="w-full rounded-md border p-2 mt-1"></select>
+                        <label class="text-sm font-medium text-gray-200">End Time</label> <!-- Changed text color to gray-200 -->
+                        <select id="event-end" class="w-full rounded-md border p-2 mt-1 bg-primary/40 text-gray-200"></select>
                     </div>
                 </div>
                 <div class="flex justify-end gap-2">
-                    <button onclick="closeEventDialog()" class="px-4 py-2 border rounded-md">Cancel</button>
-                    <button onclick="saveEvent()" class="px-4 py-2 bg-primary text-white rounded-md">Save</button>
+                    <button onclick="closeEventDialog()" class="px-4 py-2 border rounded-md text-gray-200">Cancel</button> <!-- Changed text color to gray-200 -->
+                    <button onclick="saveEvent()" class="px-4 py-2 bg-primary text-gray-200 rounded-md shadow-glow"> <!-- Added shadow-glow -->
+                        Save
+                    </button>
                 </div>
             </div>
         </div>
@@ -125,13 +132,15 @@
 
     <!-- PIN Dialog -->
     <div id="pin-dialog" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center">
-        <div class="bg-white rounded-lg p-6 w-full max-w-md mx-4">
-            <h3 class="text-lg font-semibold mb-4">Enter PIN</h3>
+        <div class="bg-primary rounded-lg p-6 w-full max-w-md mx-4"> <!-- Changed bg to primary -->
+            <h3 class="text-lg font-semibold mb-4 text-gray-200">Enter PIN</h3> <!-- Changed text color to gray-200 -->
             <div class="space-y-4">
-                <input type="password" id="input-pin" placeholder="Enter PIN" class="w-full px-4 py-2 rounded-md border">
+                <input type="password" id="input-pin" placeholder="Enter PIN" class="w-full px-4 py-2 rounded-md border bg-primary/40 text-gray-200">
                 <div class="flex justify-end gap-2">
-                    <button onclick="closePinDialog()" class="px-4 py-2 border rounded-md">Cancel</button>
-                    <button onclick="verifyPin()" class="px-4 py-2 bg-primary text-white rounded-md">Submit</button>
+                    <button onclick="closePinDialog()" class="px-4 py-2 border rounded-md text-gray-200">Cancel</button> <!-- Changed text color to gray-200 -->
+                    <button onclick="verifyPin()" class="px-4 py-2 bg-primary text-gray-200 rounded-md shadow-glow"> <!-- Added shadow-glow -->
+                        Submit
+                    </button>
                 </div>
             </div>
         </div>
@@ -165,7 +174,7 @@
             const container = document.getElementById('days-container');
             container.innerHTML = state.days.map(day => `
                 <button onclick="selectDay('${day}')" 
-                    class="px-4 py-2 rounded-md ${day === state.selectedDay ? 'bg-primary text-white' : 'border'}">
+                    class="px-4 py-2 rounded-md ${day === state.selectedDay ? 'bg-primary text-gray-200' : 'border bg-primary/40 text-gray-200'}">
                     ${day}
                 </button>
             `).join('');
@@ -177,28 +186,24 @@
             const events = state.schedules[state.selectedDay]?.events || [];
 
             container.innerHTML = events.length ? events.map(event => `
-                <div class="p-4 rounded-lg border bg-white">
+                <div class="p-4 rounded-lg border bg-primary/60 text-gray-200"> <!-- Changed bg to primary/60 -->
                     <div class="flex items-center justify-between">
                         <div>
                             <h4 class="font-medium">${event.title || 'Untitled Event'}</h4>
-                            <p class="text-sm text-gray-600">
+                            <p class="text-sm text-gray-400">
                                 ${event.startTime} - ${event.endTime}
                             </p>
                         </div>
                         <div class="flex gap-2">
-                            <button onclick="editEvent('${event.id}')" class="px-3 py-1 text-sm border rounded-md">
-                                Edit
-                            </button>
-                            <button onclick="removeEvent('${event.id}')" class="px-3 py-1 text-sm border rounded-md">
-                                Remove
-                            </button>
+                            <button onclick="editEvent('${event.id}')" class="px-3 py-1 text-sm border rounded-md text-gray-200">Edit</button> <!-- Changed text color to gray-200 -->
+                            <button onclick="removeEvent('${event.id}')" class="px-3 py-1 text-sm border rounded-md text-gray-200">Remove</button> <!-- Changed text color to gray-200 -->
                         </div>
                     </div>
                     ${event.description ? `
-                        <p class="text-sm text-gray-600 mt-2">${event.description}</p>
+                        <p class="text-sm text-gray-400 mt-2">${event.description}</p>
                     ` : ''}
                 </div>
-            `).join('') : '<p class="text-center text-gray-600">No events scheduled</p>';
+            `).join('') : '<p class="text-center text-gray-400">No events scheduled</p>'; <!-- Changed text color to gray-400 -->
 
             updateTimeline();
         }
@@ -227,11 +232,11 @@
             const container = document.getElementById('timeline-container');
             const events = state.schedules[state.selectedDay]?.events || [];
             container.innerHTML = events.map(event => `
-                <div class="mb-4 p-4 rounded-lg border bg-white">
+                <div class="mb-4 p-4 rounded-lg border bg-primary/60 text-gray-200"> <!-- Changed bg to primary/60 -->
                     <div class="flex items-center justify-between mb-2">
                         <h4 class="font-medium">${event.title}</h4>
                     </div>
-                    <p class="text-sm text-gray-600">${event.startTime} - ${event.endTime}</p>
+                    <p class="text-sm text-gray-400">${event.startTime} - ${event.endTime}</p>
                 </div>
             `).join('');
         }
@@ -344,6 +349,7 @@
                 schedules: state.schedules
             };
 
+            // Store the timetable data in local storage
             localStorage.setItem(`timetable_${timetableId}`, JSON.stringify(timetableData));
 
             const shareLink = `${window.location.origin}${window.location.pathname}?id=${timetableId}`;
