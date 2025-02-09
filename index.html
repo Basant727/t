@@ -28,7 +28,7 @@
         <div class="bg-white/80 backdrop-blur rounded-lg shadow-sm p-6 mb-6">
             <div class="flex items-center gap-3 mb-4">
                 <i class="fas fa-calendar text-primary text-2xl"></i>
-                <h1 class="text-3xl font-bold text-primary">TimeTable Pro</h1>
+                <h1 class="text-3xl font-bold text-primary">Timetable Pro</h1>
             </div>
             <div class="grid gap-4 md:grid-cols-2 mb-4">
                 <input type="text" id="title" placeholder="Timetable Title*" class="w-full px-4 py-2 rounded-md border">
@@ -82,6 +82,18 @@
                     <i class="fas fa-download"></i>
                     Download Timetable
                 </button>
+
+                <!-- Share Link -->
+                <div class="bg-white/80 backdrop-blur rounded-lg shadow-sm p-4">
+                    <div class="flex items-center gap-2 mb-4">
+                        <i class="fas fa-share text-primary"></i>
+                        <h3 class="font-semibold">Share Timetable</h3>
+                    </div>
+                    <div class="flex gap-2">
+                        <input type="text" id="share-link" class="w-full px-4 py-2 rounded-md border" readonly>
+                        <button onclick="generateShareLink()" class="px-4 py-2 bg-primary text-white rounded-md">Generate</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -111,6 +123,20 @@
         </div>
     </div>
 
+    <!-- PIN Dialog -->
+    <div id="pin-dialog" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center">
+        <div class="bg-white rounded-lg p-6 w-full max-w-md mx-4">
+            <h3 class="text-lg font-semibold mb-4">Enter PIN</h3>
+            <div class="space-y-4">
+                <input type="password" id="input-pin" placeholder="Enter PIN" class="w-full px-4 py-2 rounded-md border">
+                <div class="flex justify-end gap-2">
+                    <button onclick="closePinDialog()" class="px-4 py-2 border rounded-md">Cancel</button>
+                    <button onclick="verifyPin()" class="px-4 py-2 bg-primary text-white rounded-md">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         const state = {
             days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
@@ -126,6 +152,13 @@
             updateEventsUI();
             updateClock();
             setInterval(updateClock, 1000);
+
+            // Check for share link
+            const urlParams = new URLSearchParams(window.location.search);
+            const timetableId = urlParams.get('id');
+            if (timetableId) {
+                openPinDialog(timetableId);
+            }
         }
 
         function updateDaysUI() {
@@ -292,6 +325,65 @@
                 type: 'application/json' 
             });
             saveAs(blob, `${title.toLowerCase().replace(/\s+/g, '-')}.json`);
+        }
+
+        function generateShareLink() {
+            const title = document.getElementById('title').value || 'My Timetable';
+            const pin = document.getElementById('pin').value;
+
+            if (!pin) {
+                alert("Please set a PIN for sharing.");
+                return;
+            }
+
+            const timetableId = Date.now().toString();
+            const timetableData = {
+                title,
+                description: document.getElementById('description').value,
+                pin,
+                schedules: state.schedules
+            };
+
+            localStorage.setItem(`timetable_${timetableId}`, JSON.stringify(timetableData));
+
+            const shareLink = `${window.location.origin}${window.location.pathname}?id=${timetableId}`;
+            document.getElementById('share-link').value = shareLink;
+        }
+
+        function openPinDialog(timetableId) {
+            const dialog = document.getElementById('pin-dialog');
+            dialog.classList.remove('hidden');
+            document.getElementById('input-pin').dataset.timetableId = timetableId;
+        }
+
+        function closePinDialog() {
+            document.getElementById('pin-dialog').classList.add('hidden');
+        }
+
+        function verifyPin() {
+            const inputPin = document.getElementById('input-pin').value;
+            const timetableId = document.getElementById('input-pin').dataset.timetableId;
+            const storedTimetable = localStorage.getItem(`timetable_${timetableId}`);
+
+            if (storedTimetable) {
+                const timetableData = JSON.parse(storedTimetable);
+                if (timetableData.pin === inputPin) {
+                    closePinDialog();
+                    loadSharedTimetable(timetableData);
+                } else {
+                    alert("Invalid PIN. Please try again.");
+                }
+            } else {
+                alert("Invalid link. Timetable not found.");
+            }
+        }
+
+        function loadSharedTimetable(timetableData) {
+            document.getElementById('title').value = timetableData.title;
+            document.getElementById('description').value = timetableData.description;
+            document.getElementById('pin').value = timetableData.pin;
+            state.schedules = timetableData.schedules;
+            updateEventsUI();
         }
 
         initializeUI();
